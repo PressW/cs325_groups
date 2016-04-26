@@ -25,7 +25,7 @@ int* parseArray(char* line);
 void getLine(FILE* inFile, FILE* outFile);
 FILE* openFile(const char* filname);
 void timeRightNow(FILE* outFile);
-void printChange(changeBack change);
+void printChange(changeBack change, FILE* outFile);
 int arraySize;
 
 
@@ -114,14 +114,14 @@ void getLine(FILE* inFile, FILE* outFile){
     while ( fgets(lineIn, sizeof(lineIn), inFile) != NULL ){
         
         printf("\n\n\n*********** GREEDY CHANGE ***********");
-        //fprintf(outFile, "\n*********** ALGORITHM 4 ***********\n");
+		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
         parsedArray = parseArray(lineIn);
         fgets(buffer, sizeof(lineIn), inFile);
         value = atoi(buffer);
         gettimeofday(&time_start, NULL);
         change = greedy_Coins(parsedArray, value);
         gettimeofday(&time_stop, NULL);
-        printChange(change);
+        printChange(change, outFile);
         timeRightNow(outFile);
     }
     free(parsedArray);
@@ -141,14 +141,17 @@ FILE* openFile(const char* filename){
 }
 
 
-void printChange(changeBack change){
+void printChange(changeBack change, FILE* outFile){
     int i;
     
 	printf("\nNumber of coins per denomination:");
+	fprintf(outFile, "\nNumber of coins per denomination:");
 	for(i = 0; i < change.size; i++){
 		printf("\nDenomination: %d \t\tInstances: %d", change.denominations[i], change.allocation[i]);
+		fprintf(outFile, "\nDenomination: %d \t\tInstances: %d", change.denominations[i], change.allocation[i]);
 	}
 	printf("\n\nTotal Coins: %d", change.numCoins);
+	fprintf(outFile, "\n\nTotal Coins: %d", change.numCoins);
 }
 
 
