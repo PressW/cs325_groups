@@ -26,6 +26,7 @@ void getLine(FILE* inFile, FILE* outFile);
 FILE* openFile(const char* filname);
 void timeRightNow(FILE* outFile);
 void printChange(changeBack change, FILE* outFile);
+void largeArray(FILE* outFile);
 int arraySize;
 
 
@@ -44,7 +45,8 @@ int main(){
     fpIn = openFile(fileIn);
     fpOut = openFile(fileOut);
     
-    getLine(fpIn, fpOut);
+    //getLine(fpIn, fpOut);
+	largeArray(fpOut);
     
     fclose(fpIn);
     fclose(fpOut);
@@ -76,8 +78,67 @@ changeBack greedy_Coins(int* denominations, int value){
         change.numCoins = change.numCoins + temp;
         value = value - (temp * denominations[i]);
     }
-    
 	return change;
+}
+
+
+void largeArray(FILE* outFile){
+	
+	int i;
+	int v1[5] = {1, 5, 10, 25, 50};
+	int v2[7] = {1, 2, 6, 12, 24, 48, 60};
+	int v3[5] = {1, 6, 13, 37, 150};
+	int v4[16] = {1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30};
+	changeBack largeChange;
+	
+	for(i = 2010; i < 2201; i=i+5){
+		
+		arraySize = 5;
+		printf("\n\n\n*********** GREEDY CHANGE ***********");
+		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		gettimeofday(&time_start, NULL);
+		largeChange = greedy_Coins(v1, i);
+		gettimeofday(&time_stop, NULL);
+		printChange(largeChange, outFile);
+        timeRightNow(outFile);
+		free(largeChange.allocation);
+	}
+	
+	for(i = 2000; i < 2201; i++){
+		
+		arraySize = 7;
+		printf("\n\n\n*********** GREEDY CHANGE ***********");
+		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		gettimeofday(&time_start, NULL);
+		largeChange = greedy_Coins(v2, i);
+		gettimeofday(&time_stop, NULL);
+		printChange(largeChange, outFile);
+        timeRightNow(outFile);
+	}
+	
+	for(i = 10000; i < 10101; i++){
+		
+		arraySize = 5;
+		printf("\n\n\n*********** GREEDY CHANGE ***********");
+		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		gettimeofday(&time_start, NULL);
+		largeChange = greedy_Coins(v3, i);
+		gettimeofday(&time_stop, NULL);
+		printChange(largeChange, outFile);
+        timeRightNow(outFile);
+	}
+	
+	for(i = 2000; i < 2201; i++){
+		
+		arraySize = 16;
+		printf("\n\n\n*********** GREEDY CHANGE ***********");
+		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		gettimeofday(&time_start, NULL);
+		largeChange = greedy_Coins(v4, i);
+		gettimeofday(&time_stop, NULL);
+		printChange(largeChange, outFile);
+        timeRightNow(outFile);
+	}
 }
 
 
