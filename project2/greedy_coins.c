@@ -27,6 +27,7 @@ FILE* openFile(const char* filname);
 void timeRightNow(FILE* outFile);
 void printChange(changeBack change, FILE* outFile);
 void largeArray(FILE* outFile);
+void csvPrint(changeBack largeChange, int A, FILE* outFile);
 int arraySize;
 
 
@@ -39,7 +40,7 @@ int arraySize;
 int main(){
     
     const char* fileIn = "coins1.txt";
-    const char* fileOut = "Coins_Results.txt";
+    const char* fileOut = "Coins_Results.csv";
     FILE *fpIn, *fpOut;
     
     fpIn = openFile(fileIn);
@@ -91,57 +92,64 @@ void largeArray(FILE* outFile){
 	int v4[16] = {1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30};
 	changeBack largeChange;
 	
+	fprintf(outFile, "\n\n\n*********** ARRAY V1 ***********");
 	for(i = 2010; i < 2201; i=i+5){
 		
 		arraySize = 5;
-		printf("\n\n\n*********** GREEDY CHANGE ***********");
-		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		//printf("\n\n\n*********** GREEDY CHANGE ***********");
+		//fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
 		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v1, i);
 		gettimeofday(&time_stop, NULL);
-		printChange(largeChange, outFile);
-        timeRightNow(outFile);
+		//printChange(largeChange, outFile);
+		csvPrint(largeChange, i, outFile);
+        //timeRightNow(outFile);
 	}
 	
+	fprintf(outFile, "\n\n\n*********** ARRAY V2 ***********");
 	for(i = 2000; i < 2201; i++){
 		
 		arraySize = 7;
-		printf("\n\n\n*********** GREEDY CHANGE ***********");
-		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		//printf("\n\n\n*********** GREEDY CHANGE ***********");
+		//fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
 		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v2, i);
 		gettimeofday(&time_stop, NULL);
-		printChange(largeChange, outFile);
-        timeRightNow(outFile);
+		//printChange(largeChange, outFile);
+		csvPrint(largeChange, i, outFile);
+        //timeRightNow(outFile);
 	}
 	
+	fprintf(outFile, "\n\n\n*********** ARRAY V3 ***********");
 	for(i = 10000; i < 10101; i++){
 		
 		arraySize = 5;
-		printf("\n\n\n*********** GREEDY CHANGE ***********");
-		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		//printf("\n\n\n*********** GREEDY CHANGE ***********");
+		//fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
 		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v3, i);
 		gettimeofday(&time_stop, NULL);
-		printChange(largeChange, outFile);
-        timeRightNow(outFile);
+		//printChange(largeChange, outFile);
+		csvPrint(largeChange, i, outFile);
+        //timeRightNow(outFile);
 	}
 	
+	fprintf(outFile, "\n\n\n*********** ARRAY V4 ***********");
 	for(i = 2000; i < 2201; i++){
 		
 		arraySize = 16;
-		printf("\n\n\n*********** GREEDY CHANGE ***********");
-		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		//printf("\n\n\n*********** GREEDY CHANGE ***********");
+		//fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
 		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v4, i);
 		gettimeofday(&time_stop, NULL);
-		printChange(largeChange, outFile);
-        timeRightNow(outFile);
-		//free(largeChange.allocation);
+		//printChange(largeChange, outFile);
+		csvPrint(largeChange, i, outFile);
+        //timeRightNow(outFile);
 	}
 }
 
@@ -220,10 +228,18 @@ void printChange(changeBack change, FILE* outFile){
 }
 
 
+void csvPrint(changeBack change, int A, FILE* outFile){
+	timersub(&time_stop, &time_start, &run_time);
+	fprintf(outFile, "\n%d,%d,%ld.%09ld", A, change.numCoins, (long int)run_time.tv_sec, (long int)run_time.tv_usec);
+	printf("\n%d,%d", A, change.numCoins);
+	printf("\nComputed in %ld.%09ld\n", (long int)run_time.tv_sec, (long int)run_time.tv_usec);
+}
+
+
 void timeRightNow(FILE* outFile){
     
     timersub(&time_stop, &time_start, &run_time);
-    printf("\nComputed in %ld.%06ld\n", (long int)run_time.tv_sec, (long int)run_time.tv_usec);
-    fprintf(outFile, "\nComputed in %ld.%06ld\n", (long int)run_time.tv_sec, (long int)run_time.tv_usec);
+    printf("\nComputed in %ld.%09ld\n", (long int)run_time.tv_sec, (long int)run_time.tv_usec);
+    fprintf(outFile, "\nComputed in %ld.%09ld\n", (long int)run_time.tv_sec, (long int)run_time.tv_usec);
 }
 
