@@ -96,12 +96,12 @@ void largeArray(FILE* outFile){
 		arraySize = 5;
 		printf("\n\n\n*********** GREEDY CHANGE ***********");
 		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v1, i);
 		gettimeofday(&time_stop, NULL);
 		printChange(largeChange, outFile);
         timeRightNow(outFile);
-		free(largeChange.allocation);
 	}
 	
 	for(i = 2000; i < 2201; i++){
@@ -109,6 +109,7 @@ void largeArray(FILE* outFile){
 		arraySize = 7;
 		printf("\n\n\n*********** GREEDY CHANGE ***********");
 		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v2, i);
 		gettimeofday(&time_stop, NULL);
@@ -121,6 +122,7 @@ void largeArray(FILE* outFile){
 		arraySize = 5;
 		printf("\n\n\n*********** GREEDY CHANGE ***********");
 		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v3, i);
 		gettimeofday(&time_stop, NULL);
@@ -133,11 +135,13 @@ void largeArray(FILE* outFile){
 		arraySize = 16;
 		printf("\n\n\n*********** GREEDY CHANGE ***********");
 		fprintf(outFile, "\n\n\n*********** GREEDY CHANGE ***********");
+		printf("\nValue for A: %d", i);
 		gettimeofday(&time_start, NULL);
 		largeChange = greedy_Coins(v4, i);
 		gettimeofday(&time_stop, NULL);
 		printChange(largeChange, outFile);
         timeRightNow(outFile);
+		//free(largeChange.allocation);
 	}
 }
 
